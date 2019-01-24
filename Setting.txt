@@ -1,0 +1,34 @@
+1.Sublime Setting
+{
+    "shell_cmd": "g++ -O2 -std=c++11 -Wall \"${file}\" -o \"${file_path}/${file_base_name}\" && x-terminal-emulator -e '\"${file_path}/${file_base_name}\" && echo && echo && echo Press ENTER to continue && read line && exit'",
+    "file_regex": "^(..[^:]*):([0-9]+):?([0-9]+)?:? (.*)$",
+    "working_dir" : "$file_path",
+    "selector" : "source.c++",
+}
+
+
+2.Code Template:
+#include <bits/stdc++.h>
+#define db(x) cerr<<#x<<" = "<<x<<"\n"
+#define debug(x) { cerr<<#x<<" = "; for(__typeof(x.begin())it=x.begin();it!=x.end();it++) cerr<<*it<<' '; cerr<<"\n"; }
+#define db1d(x,l,r) { cerr<<#x<<" = "; for(int it=l;it<=r;it++) cerr<<x[it]<<' '; cerr<<"\n"; }
+using namespace std;
+ 
+int main()
+{
+	ios_base::sync_with_stdio(false);
+	freopen("input","r",stdin);
+	// Code here
+}
+
+
+3.Setting Notes:
+Build System:
+-	Tools -> Build System -> New Build System... -> Insert “Sublime Setting” -> Save as “MyC++.sublime-build
+-	Tools -> Build System -> MyC++
+Code Template:
+-	Tools -> Developer -> New Snippet... -> Insert “Code Template” -> Save as “template.sublime-snippet” -> Ctrl-Shift-P and type “template” for code template
+Code View:
+-	Alt-Shift-3
+-	View -> Groups -> Max columns: 3
+Build and Run: Ctrl+B

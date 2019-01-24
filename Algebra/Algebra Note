@@ -1,0 +1,19 @@
+1. (A/B)%mod=(A%(mod*B))/B
+2. (A/B)%mod=((A%mod)*(B^(phi(mod)-1)%mod)%mod
+	Condition: B and mod are coprimes.
+3. (A/B)%mod=((A%mod)*(B^(mod-2)%mod)%mod
+	Condition: mod is a prime number.
+4. A^N%mod=A^(N%phi(mod))%mod
+	Condition: A and mod are coprimes.
+5. A^N%mod=A^(N%(mod-1))%mod
+	Condition: mod is a prime number.
+6. Mobius function:
+mob[1]=1;
+for(int i=1;i<=N;i++)
+    for(int j=2*i;j<=N;j+=i)
+        mob[j]-=mob[i];
+7. Calculate a^(-1)% mod:
+	1. Set A=a, B=mod, C=1
+	2. Solve Ax+By=C (using Extended Euclide)
+	3. Set x=(x%mod+mod)%mod
+	4. Finally, x is equal to a^(-1)%mod

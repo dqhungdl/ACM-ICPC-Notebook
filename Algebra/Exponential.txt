@@ -1,0 +1,19 @@
+Observation:
+* a^b mod p = a^k mod p with gcd(a,p)=1 and k = phi(p)
+* gcd(a,p)!=1: a^b mod p = ((p1^k1)^b mod p)*((p2^k2)^b mod p)*((p3^k3)^b mod p)*...
+  with a=p1^k1*p2^k2*p3^k3*...
+
+Observation:
+With a,b<=m and c is some positive integer and a=b(mod m), then: ac=bc(mod mc) (*)
+
+Solving p^(ab) mod m
+Set c=gcd(p^(ab),m)
+Set m'=m/c =>m=m'c
+Set w=p^(a*b-log(p,c)) mod m'  (using ETF because gcd(p,m')=1)
+Using (*):
+
+wc=p^(ab) (mod m'c) =>wc=p^(ab) (mod m)
+
+
+
+https://stackoverflow.com/questions/4223313/finding-abc-mod-m

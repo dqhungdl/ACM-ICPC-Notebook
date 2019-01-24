@@ -1,0 +1,33 @@
+Solve:	x mod n1 = a1
+		x mod n2 = a2
+		.............
+		x mod nk = ak
+with n1, n2,..., nk pairwise coprime.
+
+1. Compute N=n1*n2*...*nk
+2. For each i=1,2,...,k compute: y(i)=N/n(i)=n1*n2*...*n(i-1)*n(i+1)*...*nk
+3. For each i=1,2,...,k compute:
+	z(i)=y(i)^(-1) (with modulo n(i))
+
+* How to compute y(i)^(-1) (with modulo n(i))?
+	1. Set A=y(i), B=n(i), C=1
+	2. Solve Ax+By=C (using Extended Euclide)
+	3. Set x=(x%n(i)+n(i))%n(i)
+	4. Finally, x is equal to y(i)^(-1) (with modulo n(i))
+
+4. Set rs=sigma(a(i)*y(i)*z(i)), rs is the final result.
+
+
+Extended CRT:
+Solve:	x mod n1 = a1
+		x mod n2 = a2
+		.............
+		x mod nk = ak
+with n1, n2,..., nk non-pairwise coprime
+
+1. Check conditions ai=aj (mod gcd(ni,nj)
+2. Observation: x mod m = (x mod p1^k1) and (x mod p2^k2) and (x mod p3^k3) ..... with m=p1^k1*p2^k2*p3^k3*.....
+3. Keep all the functions having the smallest exponent (Eg: (x mod 2 = 1) and (x mod 4 = 1) and (x mod 16 = 1)
+                                                        => (x mod 2^1 = 1) and (x mod 2^2 = 1) and (x mod 2^4 = 1) 
+                                                        => x mod 2 = 1)
+4. Using basic CRT to solve all remaining functions

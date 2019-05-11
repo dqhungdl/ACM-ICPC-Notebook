@@ -1,9 +1,18 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-int n,m,S,T,d[1005],Free[1005],c[1005][1005],f[1005][1005];
+typedef pair<int,int> ii;
+const int MAX=1005;
+int n,m,S,T,Edge=0,d[MAX],Free[MAX],c[MAX*MAX],f[MAX*MAX];
+vector<ii> g[MAX];
 queue<int> Q;
-vector<int> g[1005];
+
+void AddEdge(int u,int v,int w)
+{
+    g[u].push_back(ii(v,++Edge));
+    c[Edge]=w;
+    g[v].push_back(ii(u,++Edge));
+}
 
 bool BFS()
 {
@@ -19,13 +28,14 @@ bool BFS()
         Q.pop();
         if(u==T)
             return true;
-        for(int i=0;i<g[u].size();i++)
+        for(auto tmp:g[u])
         {
-            int v=g[u][i];
-            if(d[v]==0&&f[u][v]<c[u][v])
+            int v=tmp.first;
+            int id=tmp.second;
+            if(d[v]==0&&f[id]<c[id])
             {
-                Q.push(v);
                 d[v]=d[u]+1;
+                Q.push(v);
             }
         }
     }
@@ -39,16 +49,18 @@ int DFS(int u,int minn,int kk)
     Free[u]=kk;
     if(u==T)
         return minn;
-    for(int i=0;i<g[u].size();i++)
+    for(auto tmp:g[u])
     {
-        int v=g[u][i];
-        if(d[v]==d[u]+1&&f[u][v]<c[u][v])
+        int v=tmp.first;
+        int id=tmp.second;
+        if(d[v]==d[u]+1&&f[id]<c[id])
         {
-            int tmp=DFS(v,min(minn,c[u][v]-f[u][v]),kk);
+            int tmp=DFS(v,min(minn,c[id]-f[id]),kk);
             if(tmp>0)
             {
-                f[u][v]+=tmp;
-                f[v][u]-=tmp;
+                f[id]+=tmp;
+                id=(id%2==0?id-1:id+1);
+                f[id]-=tmp;
                 return tmp;
             }
         }
@@ -63,11 +75,9 @@ int main()
     while(m--)
     {
         cin>>u>>v>>w;
-        g[u].push_back(v);
-        g[v].push_back(u);
-        c[u][v]=w;
+        AddEdge(u,v,w);
     }
-    int cnt=0,res=0;
+    int res=0,cnt=0;
     while(BFS()==true)
     {
         int tmp=DFS(S,1e9,++cnt);
